@@ -11,6 +11,9 @@ with open ('../styles/visualize.css') as f:
     st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 df = pd.read_csv("../dataset/disney_data_csv.csv")
+df['Box office'] = df['Box office'].apply(
+    lambda x: str(x).replace('[', '').replace(']', '').replace("'", "") if isinstance(x, str) else ('None' if pd.isna(x) else str(x))
+)
 
 df = df.rename(columns={'title': 'Title', 'imdb':'IMDB', 'rotten_tomatoes':'Rotten Tomatoes'})
 df = df.dropna(subset=['Release date (datetime)', 'Country', 'Language'])
