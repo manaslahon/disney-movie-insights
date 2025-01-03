@@ -1,6 +1,7 @@
 # Disney Movie Analysis Dashboard
 
 This project analyzes Disney movies and presents key insights on their performance over time, including budget, box office collections, and other relevant metrics. The goal is to provide a visual dashboard that tracks the performance of Disney movies over different periods.
+
 ![Screenshot](images/dashboard.png)
 ## Features
 
