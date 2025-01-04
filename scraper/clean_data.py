@@ -3,9 +3,7 @@ from utils.save_json import save_data, load_data
 from utils.conversion import money_conversion
 from rich.progress import Progress
 from datetime import datetime
-from tqdm import tqdm
 import pandas as pd
-import time
 
 
 movie_info_list = load_data("../dataset/disney_data.json")
@@ -62,7 +60,7 @@ with Progress() as progress:
 
         #Update the progress after each movie iteration
         progress.update(task, advance=1)
-        time.sleep(0.1)
+        #time.sleep(0.1)
 
 #Add IMDB and Rotten Tomatoes score
 with Progress() as progress:
@@ -75,17 +73,22 @@ with Progress() as progress:
         movie["metascore"] = omdb_info.get("Metascore", None)
         movie["rotten_tomatoes"] = get_rotten_tomatoes_score(omdb_info)
 
+        progress.update(task, advance=1)
+
 #Copy the movie_info_list to convert datetime object back to datetime string
 movie_info_copy = [movie.copy() for movie in movie_info_list]
+total_size = len(movie_info_copy)
 with Progress() as progress:
     task = progress.add_task("[cyan]Converting datetime object -> string...", total=total_size)
 
-    for movie in tqdm(movie_info_copy, desc="Converting datetime object back to string"):
+    for movie in movie_info_copy:
         current_date = movie["Release date (datetime)"]
         if current_date:
             movie["Release date (datetime)"] = current_date.strftime("%B %d, %Y")
         else:
             movie["Release date (datetime)"] = None
+
+        progress.update(task, advance=1)
 
 #Save data in JSON, CSV and PICKLE format
 save_data("disney_final_save_json.json", movie_info_copy)
