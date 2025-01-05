@@ -30,9 +30,12 @@ This project analyzes Disney movies and presents key insights on their performan
 git clone https://github.com/USERNAME/disney-movie-analysis.git
 cd disney-movie-analysis
 ```
-### 2. Install the requirements:
+### 2. Create a .env file for OMDB API KEY
+```bash
+OMDB_API_KEY=examplekey
+```
+### 3. Install the requirements:
 ```bash
 pip install -r requirements.txt
 python main.py
 ```
-
